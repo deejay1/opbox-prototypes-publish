@@ -1,0 +1,27 @@
+name: "action name"
+description: "action description"
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+
+inputs:
+  host:
+    description: 'Hostname to use'
+    required: true
+  sc-id:
+    description: 'SC-ID (sc-xxxx format)'
+    required: true
+  path:
+    description: 'Where to look for your prototype files'
+    required: true
+    default: 'prototypes'
+  api-token:
+    description: 'Prototypes management token'
+    required: true
+  token:
+    description: >
+      GitHub token for GitHub API requests.
+      Users shouldn't need to set this themselves.
+    required: true
+    default: ${{ github.token }}
