@@ -46,7 +46,7 @@ let head;
   }
   core.info(`Base commit: ${base}`);
   core.info(`Head commit: ${head}`);
-  core.info(`Files detected: ${files}`);
+  core.info(`Files detected: ${JSON.stringify(files)}`);
   const repositoryUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}`;
   await action(host, scId, files, pathX, apiToken, repositoryUrl);
 })();
