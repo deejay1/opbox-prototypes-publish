@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
-module.exports = async function publishPrototypes(host, scId, files, path, apiToken) {
+module.exports = async function publishPrototypes(host, scId, files, path, apiToken, repositoryUrl) {
 
   const changedPrototypes = files.addedModified.filter(it => it.startsWith(path)).filter(it => it.endsWith('.json')).filter(it => !it.includes('latest.json'));
   const deprecatedPrototypes = files.addedModified.filter(it => it.startsWith(path)).filter(it => it.endsWith('.deprecated'));
@@ -19,7 +19,7 @@ module.exports = async function publishPrototypes(host, scId, files, path, apiTo
           authorization: `Bearer ${apiToken}`,
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ serviceCatalogId: scId, prototype: JSON.parse(prototype) })
+        body: JSON.stringify({ serviceCatalogId: scId, repositoryUrl, prototype: JSON.parse(prototype) })
       }
     );
     console.log(response.status, await response.json());
