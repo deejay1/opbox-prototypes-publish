@@ -6,7 +6,7 @@ const glob = require('glob-promise');
 const path = require('path');
 
 const token = core.getInput('token', { required: true });
-const apiToken = core.getInput('apiToken', { required: true });
+const apiToken = core.getInput('api-token', { required: true });
 const host = core.getInput('host', { required: true });
 const scId = core.getInput('sc-id', { required: true });
 const pathX = core.getInput('path', { required: true });
