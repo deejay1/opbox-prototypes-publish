@@ -17,6 +17,7 @@ module.exports = async function publishPrototypes(host, scId, files, path, apiTo
         method: 'POST',
         headers: {
           authorization: `Bearer ${apiToken}`,
+          accept: 'application/vnd.opbox-page-manager.v2+json',
           'content-type': 'application/json'
         },
         body: JSON.stringify({ serviceCatalogId: scId, repositoryUrl, prototype: JSON.parse(prototype) })
@@ -39,6 +40,7 @@ module.exports = async function publishPrototypes(host, scId, files, path, apiTo
     const response = await fetch(`https://${host}/api/management/prototypes/${prototype.kind}/${prototype.id}/deprecated`, {
       method: deprecated ? 'POST' : 'DELETE',
       headers: {
+        accept: 'application/vnd.opbox-page-manager.v2+json',
         authorization: `Bearer ${apiToken}`
       }
     });
