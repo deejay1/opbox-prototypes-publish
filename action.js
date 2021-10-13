@@ -12,7 +12,7 @@ module.exports = async function publishPrototypes(host, scId, files, path, apiTo
     core.info(`updating ${prototypeFile}`);
     const prototype = String(fs.readFileSync(prototypeFile, 'utf8'));
     const response = await postPrototype(prototype);
-    console.log(response.status, await response.json());
+    console.log(response.status, await response.text());
   }
 
   const deprecations = [...deprecatedPrototypes.map(it => ({
@@ -27,7 +27,7 @@ module.exports = async function publishPrototypes(host, scId, files, path, apiTo
     const anyFileFound = fs.readdirSync(path).filter(it => it.endsWith('.json'))[0];
     const prototype = JSON.parse(String(fs.readFileSync(path + anyFileFound, 'utf8')));
     const response = await deprecatePrototype(prototype, deprecated);
-    console.log(response.status, await response.json());
+    console.log(response.status, await response.text());
   }
 
   function deprecatePrototype(prototype, deprecated) {
