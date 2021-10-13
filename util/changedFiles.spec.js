@@ -31,10 +31,10 @@ describe('changedFiles.js', () => {
 
     // expect
     expect(result).toEqual({
-      removed: [],
-      addedModified: [
+      removed: new Set(),
+      addedModified: new Set([
         'prototypes/allegro/container/1.0.json'
-      ]
+      ])
     });
   });
 

@@ -8,7 +8,7 @@ const core = require('@actions/core');
  * @param repo repo name
  * @param base base commit
  * @param head head commit
- * @returns {Promise<{addedModified: String[], removed: String[]}>}
+ * @returns {Promise<{removed: Set<String>, addedModified: Set<String>}>}
  */
 module.exports = async function (client, owner, repo, base, head) {
 
@@ -30,23 +30,24 @@ module.exports = async function (client, owner, repo, base, head) {
   }
 
   const result = {
-    addedModified: [],
-    removed: []
+    addedModified: new Set(),
+    removed: new Set()
   };
 
   for (const file of response.data.files) {
     const filename = file.filename;
     switch (file.status) {
       case 'added':
-        result.addedModified.push(filename);
+        result.addedModified.add(filename);
         break;
       case 'modified':
-        result.addedModified.push(filename);
+        result.addedModified.add(filename);
         break;
       case 'removed':
-        result.removed.push(filename);
+        result.removed.add(filename);
         break;
       case'renamed':
+        result.addedModified.add(filename);
         break;
       default:
         core.setFailed(`One of your files includes an unsupported file status '${file.status}', expected 'added', 'modified', 'removed', or 'renamed'.`);

@@ -4,9 +4,9 @@ const fetch = require('node-fetch');
 
 module.exports = async function publishPrototypes(host, scId, files, path, apiToken, repositoryUrl) {
 
-  const changedPrototypes = files.addedModified.filter(it => it.startsWith(path)).filter(it => it.endsWith('.json')).filter(it => !it.includes('latest.json'));
-  const deprecatedPrototypes = files.addedModified.filter(it => it.startsWith(path)).filter(it => it.endsWith('.deprecated'));
-  const undeprecatedPrototypes = files.removed.filter(it => it.startsWith(path)).filter(it => it.endsWith('.deprecated'));
+  const changedPrototypes = [...files.addedModified].filter(it => it.startsWith(path)).filter(it => it.endsWith('.json')).filter(it => !it.includes('latest.json'));
+  const deprecatedPrototypes = [...files.addedModified].filter(it => it.startsWith(path)).filter(it => it.endsWith('.deprecated'));
+  const undeprecatedPrototypes = [...files.removed].filter(it => it.startsWith(path)).filter(it => it.endsWith('.deprecated'));
 
   for (const prototypeFile of changedPrototypes) {
     core.info(`updating ${prototypeFile}`);
